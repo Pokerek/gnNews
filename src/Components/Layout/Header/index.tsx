@@ -15,8 +15,10 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../Redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../Hooks/reduxHooks';
 import { toggled } from '../../../Redux/view';
+import { opened } from '../../../Redux/modal';
+import InfoModalBody from '../../Modal/InfoModalBody';
 
 export default function Header() {
    const theme = useTheme();
@@ -31,41 +33,47 @@ export default function Header() {
       dispatch(toggled());
    };
 
+   const handleOpenModal = () => {
+      dispatch(opened({ type: 'info' }));
+   };
+
    return (
-      <Box
-         display="flex"
-         justifyContent="space-between"
-         p={1}
-         height="70px"
-         borderBottom={`1px solid ${colors.primary[100]}`}
-      >
-         <Box>
-            <Link to="/">
-               <Typography variant="h1">ngNews</Typography>
-            </Link>
+      <>
+         <Box
+            display="flex"
+            justifyContent="space-between"
+            p={1}
+            height="70px"
+            borderBottom={`1px solid ${colors.primary[100]}`}
+         >
+            <Box>
+               <Link to="/">
+                  <Typography variant="h1">ngNews</Typography>
+               </Link>
+            </Box>
+            <ButtonGroup aria-label="text button group">
+               <IconButton onClick={handleClick}>
+                  {isList ? (
+                     <ListOutlinedIcon fontSize="large" />
+                  ) : (
+                     <GridViewOutlinedIcon fontSize="large" />
+                  )}
+               </IconButton>
+               <IconButton>
+                  <LanguageOutlinedIcon fontSize="large" />
+               </IconButton>
+               <IconButton onClick={handleOpenModal}>
+                  <InfoOutlinedIcon fontSize="large" />
+               </IconButton>
+               <IconButton onClick={colorMode.toggleColorMode}>
+                  {mode === 'dark' ? (
+                     <DarkModeOutlinedIcon fontSize="large" />
+                  ) : (
+                     <LightModeOutlinedIcon fontSize="large" />
+                  )}
+               </IconButton>
+            </ButtonGroup>
          </Box>
-         <ButtonGroup aria-label="text button group">
-            <IconButton onClick={handleClick}>
-               {isList ? (
-                  <ListOutlinedIcon fontSize="large" />
-               ) : (
-                  <GridViewOutlinedIcon fontSize="large" />
-               )}
-            </IconButton>
-            <IconButton>
-               <LanguageOutlinedIcon fontSize="large" />
-            </IconButton>
-            <IconButton>
-               <InfoOutlinedIcon fontSize="large" />
-            </IconButton>
-            <IconButton onClick={colorMode.toggleColorMode}>
-               {mode === 'dark' ? (
-                  <DarkModeOutlinedIcon fontSize="large" />
-               ) : (
-                  <LightModeOutlinedIcon fontSize="large" />
-               )}
-            </IconButton>
-         </ButtonGroup>
-      </Box>
+      </>
    );
 }

@@ -8,6 +8,7 @@ import Sidebar from './Components/Layout/Sidebar';
 import Content from './Components/Content';
 import { Route, Routes } from 'react-router-dom';
 import { convertCountryToPath, countries } from './Data/Countries/countries';
+import Modal from './Components/Modal';
 
 export default function App() {
    const [theme, colorMode] = useMode();
@@ -18,6 +19,7 @@ export default function App() {
             <CssBaseline />
             <ProSidebarProvider>
                <div className="app">
+                  <Modal />
                   <Sidebar />
                   <main className="content">
                      <Box>

@@ -1,18 +1,18 @@
 import React from 'react';
 import { List, ListItem, ListItemButton, Grid } from '@mui/material';
-import { useAppDispatch } from '../../Redux/hooks';
+import { useAppDispatch } from '../../Hooks/reduxHooks';
 import { opened } from '../../Redux/modal';
 import { News } from '../../Data/Articles/articles';
 
 type Props = {
-   articles: any[];
+   articles: News[];
 };
 
 export default function ListView({ articles }: Props) {
    const dispatch = useAppDispatch();
 
    const handleOpen = (article: News) => {
-      dispatch(opened(article));
+      dispatch(opened({ article, type: 'news' }));
    };
 
    return (

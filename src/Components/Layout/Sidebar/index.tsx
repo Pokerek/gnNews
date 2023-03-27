@@ -12,7 +12,7 @@ import { searchCountries } from '../../../Data/Countries/countries';
 export default function Sidebar() {
    const theme = useTheme();
    const { collapseSidebar, collapsed } = useProSidebar();
-   const [selectedCountry, setSelectedCountry] = useState('Argentina');
+   const [selectedCountry, setSelectedCountry] = useState('Poland');
    const colors = tokens(theme.palette.mode);
 
    const [search, setSearch] = useState('');

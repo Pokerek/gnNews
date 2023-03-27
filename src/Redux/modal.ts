@@ -1,23 +1,32 @@
-import { News, articles } from './../Data/Articles/articles';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { News } from '../Data/Articles/articles';
 
+type BodyType = 'info' | 'news';
 interface ModalState {
    isOpen: boolean;
-   article: News;
+   type: BodyType;
+   article: News | null;
 }
 
 const initialState: ModalState = {
    isOpen: false,
-   article: articles[0]
+   type: 'info',
+   article: null
 };
 
 const modalSlice = createSlice({
    name: 'modal',
    initialState,
    reducers: {
-      opened(state, action: PayloadAction<News>) {
+      opened(state, action: PayloadAction<{ article?: News; type: BodyType }>) {
          state.isOpen = true;
-         state.article = action.payload;
+         state.type = action.payload.type;
+
+         if (action.payload.article) {
+            state.article = action.payload.article;
+         } else {
+            state.article = null;
+         }
       },
       closed(state) {
          state.isOpen = false;

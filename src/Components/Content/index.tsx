@@ -1,11 +1,10 @@
 import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { articles } from '../../Data/Articles/articles';
 import ListView from './ListView';
 import GridView from './GridView';
-import { useAppSelector } from '../../Redux/hooks';
-import NewsModal from './NewsModal';
+import { useAppSelector } from '../../Hooks/reduxHooks';
 
 type ContentProps = {
    country: {
@@ -19,7 +18,6 @@ export default function Content({ country }: ContentProps) {
 
    return (
       <Box flex={4}>
-         <NewsModal />
          <Box className="centerContent" p={1}>
             <Typography textAlign="center" variant="h2">
                News from {country.name}

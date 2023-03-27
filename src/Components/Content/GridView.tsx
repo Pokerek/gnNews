@@ -9,8 +9,7 @@ import {
    Box
 } from '@mui/material';
 import { News } from '../../Data/Articles/articles';
-import NewsModal from './NewsModal';
-import { useAppDispatch } from '../../Redux/hooks';
+import { useAppDispatch } from '../../Hooks/reduxHooks';
 import { opened } from '../../Redux/modal';
 
 type Props = {
@@ -21,7 +20,7 @@ export default function GridView({ articles }: Props) {
    const dispatch = useAppDispatch();
 
    const handleOpen = (article: News) => {
-      dispatch(opened(article));
+      dispatch(opened({ article, type: 'news' }));
    };
 
    return (
