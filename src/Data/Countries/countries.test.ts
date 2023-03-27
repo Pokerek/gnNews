@@ -2,10 +2,15 @@ import {
    getCountryByName,
    getCountryByCode,
    convertCountryToPath,
-   searchCountries
+   searchCountries,
+   getCountryName
 } from './countries';
 
 describe('Countries object', () => {
+   it('should return name by selected language', () => {
+      expect(getCountryName('Poland', 'pl')).toBe('Polska');
+      expect(getCountryName('Poland')).toBe('Poland');
+   });
    it('should return object by name', () => {
       expect(getCountryByName('Poland')).toMatchObject({
          name: 'Poland',

@@ -355,6 +355,12 @@ export const getCountryByName = (name: string, lang = 'en') => {
    return countries.find((el) => el.name === name);
 };
 
+export const getCountryName = (name: string, lang = 'en') => {
+   const country = countries.find((el) => el.name === name);
+   if (lang === 'pl') return country?.pl;
+   return country?.en;
+};
+
 export const getCountryByCode = (code: string) =>
    countries.find((el) => el.code === code);
 
