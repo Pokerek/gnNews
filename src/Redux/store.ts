@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import viewReducer from './view';
 import modalReducer from './modal';
+import articlesReducer from './articles';
 
 export const store = configureStore({
    reducer: {
       view: viewReducer,
-      modal: modalReducer
+      modal: modalReducer,
+      articles: articlesReducer
    }
 });
 

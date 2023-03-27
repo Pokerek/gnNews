@@ -7,28 +7,34 @@ import { tokens } from '../../../theme';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 
 import {
-   convertCountryToPath,
-   getCountryByName
+   Country,
+   convertCountryToPath
 } from '../../../Data/Countries/countries';
+import { useAppDispatch } from '../../../Hooks/reduxHooks';
+import { loadingArticles } from '../../../Redux/articles';
 
 type ItemProps = {
-   name: string;
+   country: Country;
    active: boolean;
    collapsed: boolean;
    handleClick: (name: string) => void;
 };
 
 export default function Item({
-   name,
+   country,
    active,
    collapsed,
    handleClick
 }: ItemProps) {
-   const country = getCountryByName(name);
-   if (!country) return <></>;
-   const path = convertCountryToPath(name);
+   const path = convertCountryToPath(country.name);
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
+
+   const dispatch = useAppDispatch();
+
+   const handleCountryChange = () => {
+      dispatch(loadingArticles(country.code));
+   };
 
    return (
       <MenuItem
@@ -44,17 +50,21 @@ export default function Item({
             }
          }}
          active={active}
-         component={<Link to={`/country${path}`} />}
+         component={
+            <Link onClick={handleCountryChange} to={`/country${path}`} />
+         }
       >
          <Box
             display="flex"
             gap={collapsed ? 0 : 2}
             justifyContent={collapsed ? 'center' : 'start'}
             alignItems="center"
-            onClick={() => handleClick(name)}
+            onClick={() => handleClick(country.name)}
          >
             <Typography className={`fi fis fi-${country.code}`} fontSize={20} />
-            <Typography fontSize={15}>{collapsed ? '' : name}</Typography>
+            <Typography fontSize={15}>
+               {collapsed ? '' : country.name}
+            </Typography>
          </Box>
       </MenuItem>
    );

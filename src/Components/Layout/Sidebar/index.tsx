@@ -64,7 +64,7 @@ export default function Sidebar() {
                   <Item
                      active={selectedCountry === country.name}
                      key={country.code}
-                     name={country.name}
+                     country={country}
                      collapsed={collapsed}
                      handleClick={handleCountryChange}
                   />

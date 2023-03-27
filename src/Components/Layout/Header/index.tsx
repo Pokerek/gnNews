@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from '../../../Hooks/reduxHooks';
 import { toggled } from '../../../Redux/view';
 import { opened } from '../../../Redux/modal';
 import InfoModalBody from '../../Modal/InfoModalBody';
+import { loadingArticles } from '../../../Redux/articles';
 
 export default function Header() {
    const theme = useTheme();
@@ -37,6 +38,10 @@ export default function Header() {
       dispatch(opened({ type: 'info' }));
    };
 
+   const handleCountryChange = () => {
+      dispatch(loadingArticles('xx'));
+   };
+
    return (
       <>
          <Box
@@ -47,7 +52,7 @@ export default function Header() {
             borderBottom={`1px solid ${colors.primary[100]}`}
          >
             <Box>
-               <Link to="/">
+               <Link onClick={handleCountryChange} to="/">
                   <Typography variant="h1">ngNews</Typography>
                </Link>
             </Box>

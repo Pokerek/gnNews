@@ -1,4 +1,4 @@
-export const countries = [
+export const countries: Country[] = [
    {
       name: 'Argentina',
       code: 'ar'
@@ -216,6 +216,11 @@ export const countries = [
       code: 've'
    }
 ];
+
+export interface Country {
+   name: string;
+   code: string;
+}
 
 export const searchCountries = (text: string) => {
    const regex = new RegExp(text.toLowerCase());

@@ -66,3 +66,31 @@ export type News = {
    publishedAt: string;
    content: string | null;
 };
+interface ArticlesData {
+   status: string;
+   totalResults: number;
+   articles: News[];
+}
+
+const API_KEY = import.meta.env.VITE_NEWS_API;
+
+export const fetchArticles = async (code: string) => {
+   if (!API_KEY) return articles;
+   const url = `https://newsapi.org/v2/${
+      code === 'xx'
+         ? `everything?language=en&pageSize=100&`
+         : `top-headlines?country=${code}&`
+   }apiKey=${API_KEY}`;
+
+   try {
+      const response = await fetch(url);
+      if (!response.ok) throw Error('No api connection');
+
+      const data: ArticlesData = await response.json();
+      if (data.status !== 'ok') throw Error('No api connection');
+
+      return data.articles;
+   } catch (error) {
+      return articles;
+   }
+};
