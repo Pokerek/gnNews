@@ -16,7 +16,7 @@ export default function App() {
 
    const dispatch = useAppDispatch();
    useEffect(() => {
-      dispatch(loadingArticles('xx'));
+      dispatch(loadingArticles({ code: 'xx' }));
    });
 
    return (

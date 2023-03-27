@@ -9,10 +9,14 @@ describe('Countries object', () => {
    it('should return object by name', () => {
       expect(getCountryByName('Poland')).toMatchObject({
          name: 'Poland',
+         en: 'Poland',
+         pl: 'Polska',
          code: 'pl'
       });
       expect(getCountryByName('United Kingdom')).toMatchObject({
          name: 'United Kingdom',
+         en: 'United Kingdom',
+         pl: 'Wielka Brytania',
          code: 'gb'
       });
    });
@@ -20,10 +24,14 @@ describe('Countries object', () => {
    it('should return object by code', () => {
       expect(getCountryByCode('pl')).toMatchObject({
          name: 'Poland',
+         en: 'Poland',
+         pl: 'Polska',
          code: 'pl'
       });
       expect(getCountryByCode('gb')).toMatchObject({
          name: 'United Kingdom',
+         en: 'United Kingdom',
+         pl: 'Wielka Brytania',
          code: 'gb'
       });
    });
@@ -38,12 +46,30 @@ describe('Countries object', () => {
 
    it('should return all countries that contains passed text', () => {
       expect(searchCountries('Poland')).toMatchObject([
-         { name: 'Poland', code: 'pl' }
+         {
+            name: 'Poland',
+            en: 'Poland',
+            pl: 'Polska',
+            code: 'pl'
+         }
+      ]);
+      expect(searchCountries('Polska', 'pl')).toMatchObject([
+         {
+            name: 'Poland',
+            en: 'Poland',
+            pl: 'Polska',
+            code: 'pl'
+         }
       ]);
       expect(searchCountries('Au')).toMatchObject([
-         { name: 'Australia', code: 'au' },
-         { name: 'Austria', code: 'at' },
-         { name: 'Saudi Arabia', code: 'sa' }
+         { name: 'Australia', en: 'Australia', pl: 'Australia', code: 'au' },
+         { name: 'Austria', en: 'Austria', pl: 'Austria', code: 'at' },
+         {
+            name: 'Saudi Arabia',
+            en: 'Saudi Arabia',
+            pl: 'Arabia Saudyjska',
+            code: 'sa'
+         }
       ]);
    });
 

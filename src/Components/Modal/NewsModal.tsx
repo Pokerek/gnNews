@@ -7,7 +7,7 @@ type Props = {
    article: News | null;
 };
 
-export default function NewsModalBody({ article }: Props) {
+export default function NewsModal({ article }: Props) {
    if (!article)
       return <Typography>Something goes wrong with loading article</Typography>;
 

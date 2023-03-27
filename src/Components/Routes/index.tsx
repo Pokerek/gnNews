@@ -15,7 +15,7 @@ export default function Routes() {
             <Route
                key={country.name}
                path={`/country${convertCountryToPath(country.name)}`}
-               element={<Content country={country} />}
+               element={<Content />}
             />
          ))}
       </ReactRoutes>

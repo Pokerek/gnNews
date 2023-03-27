@@ -9,6 +9,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
 import { searchCountries } from '../../../Data/Countries/countries';
 import { useAppSelector } from '../../../Hooks/reduxHooks';
+import { useTranslation } from 'react-i18next';
 
 export default function Sidebar() {
    const theme = useTheme();
@@ -21,6 +22,8 @@ export default function Sidebar() {
       setSearch(text);
    };
    const countries = searchCountries(search);
+
+   const { t } = useTranslation();
 
    return (
       <div className="sidebar">
@@ -44,7 +47,7 @@ export default function Sidebar() {
                      <Box px={2} display="flex">
                         <InputBase
                            onChange={(e) => handleSearchChange(e.target.value)}
-                           placeholder="Search"
+                           placeholder={`${t('search')}`}
                            value={search}
                            sx={{
                               border: `1px solid ${colors.primary[400]}`,

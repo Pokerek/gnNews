@@ -5,7 +5,7 @@ import { News } from '../Data/Articles/articles';
 interface ArticlesState {
    total: number;
    articles: News[];
-   country: string;
+   country: string | null;
    status: 'idle' | 'loading' | 'succeeded' | 'failed';
    error: string | null;
 }
@@ -13,7 +13,7 @@ interface ArticlesState {
 const initialState: ArticlesState = {
    total: articles.length,
    articles: [],
-   country: 'Worldwide',
+   country: null,
    status: 'idle',
    error: null
 };
@@ -40,7 +40,7 @@ const articlesSlice = createSlice({
    name: 'articles',
    initialState,
    reducers: {
-      changeCountry(state, action: PayloadAction<string>) {
+      changeCountry(state, action: PayloadAction<string | null>) {
          state.country = action.payload;
       }
    },

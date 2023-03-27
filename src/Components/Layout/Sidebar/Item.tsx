@@ -12,6 +12,7 @@ import {
 } from '../../../Data/Countries/countries';
 import { useAppDispatch } from '../../../Hooks/reduxHooks';
 import { changeCountry, loadingArticles } from '../../../Redux/articles';
+import { useTranslation } from 'react-i18next';
 
 type ItemProps = {
    country: Country;
@@ -24,11 +25,15 @@ export default function Item({ country, active, collapsed }: ItemProps) {
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
 
+   const { i18n } = useTranslation();
+   const language = i18n.language;
+   const countryName = language === 'en' ? country.en : country.pl;
+
    const dispatch = useAppDispatch();
 
    const handleCountryChange = () => {
-      dispatch(loadingArticles(country.code));
-      dispatch(changeCountry(country.name));
+      dispatch(loadingArticles({ code: country.code }));
+      dispatch(changeCountry(countryName));
    };
 
    return (
@@ -57,7 +62,7 @@ export default function Item({ country, active, collapsed }: ItemProps) {
          >
             <Typography className={`fi fis fi-${country.code}`} fontSize={20} />
             <Typography fontSize={15}>
-               {collapsed ? '' : country.name}
+               {collapsed ? '' : countryName}
             </Typography>
          </Box>
       </MenuItem>

@@ -4,8 +4,9 @@ import '../../Data/Articles/articles';
 import { useAppDispatch, useAppSelector } from '../../Hooks/reduxHooks';
 import { closed } from '../../Redux/modal';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import InfoModalBody from './InfoModalBody';
-import NewsModalBody from './NewsModalBody';
+import InfoModalBody from './InfoModal';
+import NewsModalBody from './NewsModal';
+import LanguageModal from './LanguageModal';
 
 const modalInnerStyle = {
    position: 'absolute',
@@ -27,6 +28,18 @@ export default function Modal() {
       dispatch(closed());
    };
 
+   let modalBody;
+   switch (type) {
+      case 'news':
+         modalBody = <NewsModalBody article={article} />;
+         break;
+      case 'lang':
+         modalBody = <LanguageModal />;
+         break;
+      default:
+         modalBody = <InfoModalBody />;
+   }
+
    return (
       <MUI_Modal
          open={isOpen}
@@ -41,11 +54,7 @@ export default function Modal() {
             >
                <CloseOutlinedIcon fontSize="large" />
             </IconButton>
-            {type === 'info' ? (
-               <InfoModalBody />
-            ) : (
-               <NewsModalBody article={article} />
-            )}
+            {modalBody}
          </Box>
       </MUI_Modal>
    );

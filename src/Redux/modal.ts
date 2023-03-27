@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { News } from '../Data/Articles/articles';
 
-type BodyType = 'info' | 'news';
+type BodyType = 'info' | 'news' | 'lang';
 interface ModalState {
    isOpen: boolean;
    type: BodyType;
