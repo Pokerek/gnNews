@@ -8,20 +8,19 @@ import '/node_modules/flag-icons/css/flag-icons.min.css';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 
 import { searchCountries } from '../../../Data/Countries/countries';
+import { useAppSelector } from '../../../Hooks/reduxHooks';
 
 export default function Sidebar() {
    const theme = useTheme();
    const { collapseSidebar, collapsed } = useProSidebar();
-   const [selectedCountry, setSelectedCountry] = useState('Poland');
    const colors = tokens(theme.palette.mode);
+   const selectedCountry = useAppSelector((state) => state.articles.country);
 
    const [search, setSearch] = useState('');
    const handleSearchChange = (text: string) => {
       setSearch(text);
    };
    const countries = searchCountries(search);
-
-   const handleCountryChange = (name: string) => setSelectedCountry(name);
 
    return (
       <div className="sidebar">
@@ -30,6 +29,7 @@ export default function Sidebar() {
                theme.palette.mode === 'dark' ? colors.primary[500] : ''
             }
             style={{ height: '100vh', border: 'none' }}
+            defaultCollapsed
          >
             <Menu>
                <Box
@@ -66,7 +66,6 @@ export default function Sidebar() {
                      key={country.code}
                      country={country}
                      collapsed={collapsed}
-                     handleClick={handleCountryChange}
                   />
                ))}
             </Menu>

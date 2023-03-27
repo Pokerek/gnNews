@@ -11,15 +11,13 @@ import { ColorModeContext, tokens } from '../../../theme';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../Hooks/reduxHooks';
 import { toggled } from '../../../Redux/view';
 import { opened } from '../../../Redux/modal';
-import InfoModalBody from '../../Modal/InfoModalBody';
-import { loadingArticles } from '../../../Redux/articles';
+import { changeCountry, loadingArticles } from '../../../Redux/articles';
 
 export default function Header() {
    const theme = useTheme();
@@ -40,6 +38,7 @@ export default function Header() {
 
    const handleCountryChange = () => {
       dispatch(loadingArticles('xx'));
+      dispatch(changeCountry('Worldwide'));
    };
 
    return (
@@ -63,9 +62,6 @@ export default function Header() {
                   ) : (
                      <GridViewOutlinedIcon fontSize="large" />
                   )}
-               </IconButton>
-               <IconButton>
-                  <LanguageOutlinedIcon fontSize="large" />
                </IconButton>
                <IconButton onClick={handleOpenModal}>
                   <InfoOutlinedIcon fontSize="large" />

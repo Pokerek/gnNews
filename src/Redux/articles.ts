@@ -5,40 +5,60 @@ import { News } from '../Data/Articles/articles';
 interface ArticlesState {
    total: number;
    articles: News[];
-   status: string;
+   country: string;
+   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+   error: string | null;
 }
 
 const initialState: ArticlesState = {
    total: articles.length,
    articles: [],
-   status: 'idle'
+   country: 'Worldwide',
+   status: 'idle',
+   error: null
 };
 
-export const loadingArticles = createAsyncThunk(
+interface ApiOptions {
+   code: string;
+}
+interface ApiSuccessResponse {
+   articles: News[];
+}
+
+export const loadingArticles = createAsyncThunk<ApiSuccessResponse, ApiOptions>(
    'article/loading',
-   async (code: string) => {
-      const articles = await fetchArticles(code);
-      return articles;
+   async (options, thunkAPI) => {
+      const articles = await fetchArticles(options.code);
+      if (articles === null) {
+         return thunkAPI.rejectWithValue('Error fetching articles');
+      }
+      return { articles };
    }
 );
 
 const articlesSlice = createSlice({
    name: 'articles',
    initialState,
-   reducers: {},
+   reducers: {
+      changeCountry(state, action: PayloadAction<string>) {
+         state.country = action.payload;
+      }
+   },
    extraReducers(builder) {
       builder.addCase(loadingArticles.pending, (state) => {
          state.status = 'loading';
       });
-      builder.addCase(
-         loadingArticles.fulfilled,
-         (state, action: PayloadAction<News[]>) => {
-            state.status = 'succeeded';
-            state.articles = action.payload;
-            state.total = action.payload.length;
-         }
-      );
+      builder.addCase(loadingArticles.fulfilled, (state, action) => {
+         state.status = 'succeeded';
+         state.articles = action.payload.articles;
+         state.total = action.payload.articles.length;
+      });
+      builder.addCase(loadingArticles.rejected, (state) => {
+         state.status = 'failed';
+         state.error = 'Something went wrong!';
+      });
    }
 });
 
+export const { changeCountry } = articlesSlice.actions;
 export default articlesSlice.reducer;

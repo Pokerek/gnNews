@@ -11,21 +11,15 @@ import {
    convertCountryToPath
 } from '../../../Data/Countries/countries';
 import { useAppDispatch } from '../../../Hooks/reduxHooks';
-import { loadingArticles } from '../../../Redux/articles';
+import { changeCountry, loadingArticles } from '../../../Redux/articles';
 
 type ItemProps = {
    country: Country;
    active: boolean;
    collapsed: boolean;
-   handleClick: (name: string) => void;
 };
 
-export default function Item({
-   country,
-   active,
-   collapsed,
-   handleClick
-}: ItemProps) {
+export default function Item({ country, active, collapsed }: ItemProps) {
    const path = convertCountryToPath(country.name);
    const theme = useTheme();
    const colors = tokens(theme.palette.mode);
@@ -34,6 +28,7 @@ export default function Item({
 
    const handleCountryChange = () => {
       dispatch(loadingArticles(country.code));
+      dispatch(changeCountry(country.name));
    };
 
    return (
@@ -59,7 +54,6 @@ export default function Item({
             gap={collapsed ? 0 : 2}
             justifyContent={collapsed ? 'center' : 'start'}
             alignItems="center"
-            onClick={() => handleClick(country.name)}
          >
             <Typography className={`fi fis fi-${country.code}`} fontSize={20} />
             <Typography fontSize={15}>
