@@ -302,7 +302,7 @@ export const countries: Country[] = [
    {
       name: 'United Arab Emirates',
       en: 'United Arab Emirates',
-      pl: 'Zjednoczone Emiraty Arabskie',
+      pl: 'Zjd. Emiraty Arabskie',
       code: 'ae'
    },
    {

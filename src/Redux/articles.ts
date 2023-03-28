@@ -1,11 +1,13 @@
+import { Theme } from '@mui/material/styles';
 import { articles, fetchArticles } from './../Data/Articles/articles';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { News } from '../Data/Articles/articles';
+import { Country } from '../Data/Countries/countries';
 
 interface ArticlesState {
    total: number;
    articles: News[];
-   country: string | null;
+   country: Country | null;
    status: 'idle' | 'loading' | 'succeeded' | 'failed';
    error: string | null;
 }
@@ -40,7 +42,7 @@ const articlesSlice = createSlice({
    name: 'articles',
    initialState,
    reducers: {
-      changeCountry(state, action: PayloadAction<string | null>) {
+      changeCountry(state, action: PayloadAction<Country | null>) {
          state.country = action.payload;
       }
    },

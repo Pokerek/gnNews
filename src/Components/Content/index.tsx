@@ -6,7 +6,10 @@ import GridView from './GridView';
 import { useAppSelector } from '../../Hooks/reduxHooks';
 import EmptyView from './EmptyView';
 import { useTranslation } from 'react-i18next';
-import { getCountryName } from '../../Data/Countries/countries';
+import {
+   getCountryByName,
+   getCountryName
+} from '../../Data/Countries/countries';
 
 export default function Content() {
    const isList = useAppSelector((state) => state.view.isList);
@@ -30,7 +33,7 @@ export default function Content() {
             <Typography textAlign="center" variant="h2">
                {t('contentTitle')}{' '}
                {country
-                  ? getCountryName(country, i18n.language)
+                  ? getCountryName(country.name, i18n.language)
                   : t('worldwide')}
             </Typography>
             {body}

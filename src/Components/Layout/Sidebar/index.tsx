@@ -17,13 +17,13 @@ export default function Sidebar() {
    const colors = tokens(theme.palette.mode);
    const selectedCountry = useAppSelector((state) => state.articles.country);
 
+   const { t, i18n } = useTranslation();
+
    const [search, setSearch] = useState('');
    const handleSearchChange = (text: string) => {
       setSearch(text);
    };
-   const countries = searchCountries(search);
-
-   const { t } = useTranslation();
+   const countries = searchCountries(search, i18n.language);
 
    return (
       <div className="sidebar">
@@ -65,7 +65,7 @@ export default function Sidebar() {
             <Menu className="centerContent">
                {countries.map((country) => (
                   <Item
-                     active={selectedCountry === country.name}
+                     active={selectedCountry?.name === country.name}
                      key={country.code}
                      country={country}
                      collapsed={collapsed}

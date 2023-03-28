@@ -33,7 +33,7 @@ export default function Item({ country, active, collapsed }: ItemProps) {
 
    const handleCountryChange = () => {
       dispatch(loadingArticles({ code: country.code }));
-      dispatch(changeCountry(countryName));
+      dispatch(changeCountry(country));
    };
 
    return (

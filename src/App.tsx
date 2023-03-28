@@ -9,15 +9,16 @@ import Sidebar from './Components/Layout/Sidebar';
 import Modal from './Components/Modal';
 import Routes from './Components/Routes';
 import { useAppDispatch } from './Hooks/reduxHooks';
-import { loadingArticles } from './Redux/articles';
+import articles, { loadingArticles } from './Redux/articles';
 
 export default function App() {
    const [theme, colorMode] = useMode();
 
    const dispatch = useAppDispatch();
+
    useEffect(() => {
       dispatch(loadingArticles({ code: 'xx' }));
-   });
+   }, []);
 
    return (
       <ColorModeContext.Provider value={colorMode}>
