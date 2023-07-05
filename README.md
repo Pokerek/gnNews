@@ -1,6 +1,6 @@
 
 
-<h1 align="center">gnNews</h1>
+<h1 align="center">newsApp</h1>
 
 ---
 
